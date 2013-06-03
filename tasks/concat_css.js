@@ -76,10 +76,11 @@ module.exports = function(grunt) {
         if (data.imports) {
           imports += data.imports.join("\n") + "\n";
         }
+        return data;
       });
 
       // Write the destination file.
-      grunt.file.write(f.dest, imports + results.join("\n"));
+      grunt.file.write(f.dest, imports + results.map(function(data){return data.css;}).join("\n"));
 
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');
