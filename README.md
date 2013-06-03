@@ -28,26 +28,13 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
+    all: {
+      src: ["/**/*.css"],
+      dest: "styles.css"
     },
   },
 })
 ```
-
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
 
 ### Usage Examples
 
@@ -71,14 +58,10 @@ In this example, custom options are used to do something else with whatever else
 ```js
 grunt.initConfig({
   concat_css: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+      'styles.css': ['src/styles/**/*.css', 'src/assets/**/*.css']
+    }
+  }
 })
 ```
 
@@ -86,4 +69,3 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_

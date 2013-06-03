@@ -55,6 +55,7 @@ module.exports = function(grunt) {
       };
 
       var imports = "";
+      var cssSource = "";
 
       console.log(f.src, f.dest);
       // Concat specified files.
@@ -78,12 +79,12 @@ module.exports = function(grunt) {
         if (data.imports) {
           imports += data.imports.join("\n") + "\n";
         }
-        console.log(data);
+        cssSource += data.css;
         return data;
       });
 
       // Write the destination file.
-      grunt.file.write(f.dest, imports + results.map(function(data){return data.css;}).join("\n"));
+      grunt.file.write(f.dest, imports + cssSource);
 
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');
