@@ -56,6 +56,7 @@ module.exports = function(grunt) {
 
       var imports = "";
 
+      console.log(f.src, f.dest);
       // Concat specified files.
       var results = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
@@ -71,11 +72,13 @@ module.exports = function(grunt) {
           path: filepath,
           css: grunt.file.read(filepath)
         };
+        console.log(data);
         extractImportStatements(data);
         rebaseUrls(data);
         if (data.imports) {
           imports += data.imports.join("\n") + "\n";
         }
+        console.log(data);
         return data;
       });
 
