@@ -18,7 +18,9 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('concat_css', 'Your task description goes here.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      base: ""
+      base: "",
+      rebaseUrls: true,
+      debugMode: false
     });
 
     // Iterate over all specified file groups.
@@ -57,7 +59,7 @@ module.exports = function(grunt) {
       var imports = "";
       var cssSource = "";
 
-      console.log(f.src, f.dest);
+      options.debugMode && console.log(f.src, f.dest);
       // Concat specified files.
       var results = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
@@ -73,9 +75,9 @@ module.exports = function(grunt) {
           path: filepath,
           css: grunt.file.read(filepath)
         };
-        console.log(data);
+        options.debugMode && console.log(data);
         extractImportStatements(data);
-        rebaseUrls(data);
+        options.rebaseUrls && rebaseUrls(data);
         if (data.imports) {
           imports += data.imports.join("\n") + "\n";
         }
