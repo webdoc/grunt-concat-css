@@ -1,6 +1,6 @@
 {
   "name": "grunt-concat-css",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Concat CSS with @import statements at top and relative url preserved.",
   "homepage": "https://github.com/urturn/grunt-concat-css",
   "author": "Olivier Amblet <olivier@amblet.net>",
