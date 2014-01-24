@@ -39,27 +39,30 @@ grunt.initConfig({
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+By default, all css are concatenated. The only things that happens is that every @import statement are placed at the begininning of the resulting file (as @import statement).
 
 ```js
 grunt.initConfig({
   concat_css: {
     options: {},
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'dest/compiled.css': ['src/styles/componentA.css', 'src/styles/componentB.css'],
     },
   },
 })
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+#### Rebase URLs
+by specifying rebaseUrls: true, all the assets will be rebased relative to this project root.
 
 ```js
 grunt.initConfig({
   concat_css: {
+    options: {
+      assetBaseUrl: 'static/assets'
+    },
     files: {
-      'styles.css': ['src/styles/**/*.css', 'src/assets/**/*.css']
+      'static/styles.css': ['src/styles/**/*.css', 'src/assets/**/*.css']
     }
   }
 })

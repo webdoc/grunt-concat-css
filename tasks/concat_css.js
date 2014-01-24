@@ -18,8 +18,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('concat_css', 'Your task description goes here.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      base: "",
-      rebaseUrls: false,
+      assetBaseUrl: false,
       debugMode: false
     });
 
@@ -60,11 +59,9 @@ module.exports = function(grunt) {
           };
         }
 
-        var basedir = dirname(data.path);
-        if(basedir){
-          data.css = data.css.replace(/url\(['\"]?([^'\"\:]+)['\"]?\)/gm, dataTransformUrlFunc(basedir));
-          data.css = data.css.replace(/@import\s+['\"]([^'\"\:]+)['\"]/gm, dataTransformImportAlternateFunc(basedir));
-        }
+        var baseUrl = options.assetBaseUrl.replace(/\/$/, '');
+        data.css = data.css.replace(/url\(['\"]?([^'\"\:]+)['\"]?\)/gm, dataTransformUrlFunc(baseUrl));
+        data.css = data.css.replace(/@import\s+['\"]([^'\"\:]+)['\"]/gm, dataTransformImportAlternateFunc(baseUrl));
       };
 
       var imports = "";
@@ -87,7 +84,9 @@ module.exports = function(grunt) {
           css: grunt.file.read(filepath)
         };
         options.debugMode && console.log(data);
-        options.rebaseUrls && rebaseUrls(data);
+        if ([false, undefined].indexOf(options.assetBaseUrl) === -1) {
+          rebaseUrls(data);
+        }
         extractImportStatements(data);
         if (data.imports) {
           imports += data.imports.join("\n") + "\n";

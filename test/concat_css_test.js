@@ -32,7 +32,6 @@ exports.concat_css = {
     var actual = grunt.file.read('tmp/default_options.css');
     var expected = grunt.file.read('test/expected/default_options.css');
     test.equal(actual, expected, 'The two files should be concatanated together.');
-
     test.done();
   },
 

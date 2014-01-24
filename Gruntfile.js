@@ -39,7 +39,7 @@ module.exports = function(grunt) {
       },
       rebase_urls: {
         options: {
-          rebaseUrls: true
+          assetBaseUrl: 'static/assets/' // trailing / can be omitted
         },
         files: {
           'tmp/rebase_urls.css': ['test/fixtures/test.css', 'test/fixtures/import.css']
