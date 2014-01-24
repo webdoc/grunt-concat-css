@@ -29,12 +29,13 @@ module.exports = function(grunt) {
       var sources = [];
 
       var extractImportStatements = function (data){
-        var rex = /@import.*\;/gim;
+        var rex = /@import\s.+\;/gim;
+        var replaceRex = /[\s]*@import\s.+\;/gim;
         var matches = data.css.match(rex);
         if(matches && matches.length > 0){
           grunt.log.write("Found " + matches.join(", "));
           data.imports = matches;
-          data.css = data.css.replace(rex, '');
+          data.css = data.css.replace(replaceRex, '');
         }
       };
 
@@ -45,19 +46,29 @@ module.exports = function(grunt) {
           return splits.join('/');
         }
 
-        function dataTransformFunc(basedir){
+        // Rebase any url('someUrl') variation
+        function dataTransformUrlFunc(basedir) {
           return function(a, b) {
-            return "url('"+path.join(basedir, b)+"')";
+            return "url('"+[basedir, b].join('/')+"')";
           };
         }
+
+        // Rebase @import 'someUrl' exception
+        function dataTransformImportAlternateFunc(basedir) {
+          return function(a, b) {
+            return "@import url('"+[basedir, b].join('/')+"')";
+          };
+        }
+
         var basedir = dirname(data.path);
         if(basedir){
-          data.css = data.css.replace(/url\(['\"]?([^'\"\:]+)['\"]?\)/gm, dataTransformFunc(basedir));
+          data.css = data.css.replace(/url\(['\"]?([^'\"\:]+)['\"]?\)/gm, dataTransformUrlFunc(basedir));
+          data.css = data.css.replace(/@import\s+['\"]([^'\"\:]+)['\"]/gm, dataTransformImportAlternateFunc(basedir));
         }
       };
 
       var imports = "";
-      var cssSource = "";
+      var cssFragments = [];
 
       options.debugMode && console.log(f.src, f.dest);
       // Concat specified files.
@@ -76,17 +87,17 @@ module.exports = function(grunt) {
           css: grunt.file.read(filepath)
         };
         options.debugMode && console.log(data);
-        extractImportStatements(data);
         options.rebaseUrls && rebaseUrls(data);
+        extractImportStatements(data);
         if (data.imports) {
           imports += data.imports.join("\n") + "\n";
         }
-        cssSource += data.css;
+        cssFragments.push(data.css.replace(/(^\s+|\s+$)/g,''));
         return data;
       });
 
       // Write the destination file.
-      grunt.file.write(f.dest, imports + cssSource);
+      grunt.file.write(f.dest, imports + cssFragments.join('\n') + '\n');
 
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');
