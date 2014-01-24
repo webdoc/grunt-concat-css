@@ -72,3 +72,10 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+0.3.0: 
+- Tests added
+- REFACTOR: {string} assetBaseUrl option replace {boolean} rebaseUrls
+
+0.2.0:
+- UPDATE: rebaseUrls option is disabled by default
