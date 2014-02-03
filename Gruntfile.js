@@ -34,15 +34,32 @@ module.exports = function(grunt) {
         options: {
         },
         files: {
-          'tmp/default_options.css': ['test/fixtures/test.css', 'test/fixtures/import.css']
+          'tmp/default_options.css': ['test/fixtures/test.css', 'test/fixtures/import.css', 'test/fixtures/component_a/css/style.css']
+        }
+      },
+      baseDir: {
+        options: {
+          baseDir: 'test/fixtures'
+        },
+        files: {
+          'tmp/basedir_options.css': ['test/fixtures/test.css', 'test/fixtures/import.css']
         }
       },
       rebase_urls: {
         options: {
+          baseDir: 'test/fixtures',
           assetBaseUrl: 'static/assets/' // trailing / can be omitted
         },
         files: {
-          'tmp/rebase_urls.css': ['test/fixtures/test.css', 'test/fixtures/import.css']
+          'tmp/rebase_urls.css': ['test/fixtures/test.css', 'test/fixtures/import.css', 'test/fixtures/component_a/css/style.css']
+        }
+      },
+      no_basedir_options: {
+        options: {
+          assetBaseUrl: '.' // trailing / can be omitted
+        },
+        files: {
+          'tmp/no_basedir_options.css': ['test/fixtures/test.css', 'test/fixtures/import.css', 'test/fixtures/component_a/css/style.css']
         }
       }
     },

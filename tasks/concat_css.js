@@ -47,19 +47,45 @@ module.exports = function(grunt) {
 
         // Rebase any url('someUrl') variation
         function dataTransformUrlFunc(basedir) {
-          return function(a, b) {
-            return "url('"+[basedir, b].join('/')+"')";
+          var bd = basedir;
+          return function(_, b) {
+            return "url('"+normalize([bd, b].join('/'))+"')";
           };
         }
 
         // Rebase @import 'someUrl' exception
         function dataTransformImportAlternateFunc(basedir) {
-          return function(a, b) {
-            return "@import url('"+[basedir, b].join('/')+"')";
+          var bd = basedir;
+          return function(_, b) {
+            return "@import url('"+normalize([bd, b].join('/'))+"')";
           };
         }
 
-        var baseUrl = options.assetBaseUrl.replace(/\/$/, '');
+        /**
+         * remove upFolder(..) part of an URL
+         */
+        function normalize(url) {
+          var computedParts = [];
+          var parts = url.split('/');
+          for (var i in parts){
+            if (parts[i] === '..') {
+              computedParts.pop();
+            } else {
+              computedParts.push(parts[i]);
+            }
+          }
+          return computedParts.join('/');
+        }
+
+        function computeBaseUrl() {
+          var re = new RegExp('(?:^'+ options.baseDir +'\/?)?(.*)\/[^\/]+$');
+          var re_no_base_dir = /(.*)\/[^\/]+$/;
+          var relativePath = options.baseDir ? data.path.replace(re, '$1') : data.path.replace(re_no_base_dir, '$1');
+          return options.assetBaseUrl.replace(/\/$/, '') + (relativePath ? '/' + relativePath : '');
+        }
+
+        var baseUrl = computeBaseUrl();
+
         data.css = data.css.replace(/url\(['\"]?([^'\"\:]+)['\"]?\)/gm, dataTransformUrlFunc(baseUrl));
         data.css = data.css.replace(/@import\s+['\"]([^'\"\:]+)['\"]/gm, dataTransformImportAlternateFunc(baseUrl));
       };
@@ -69,15 +95,7 @@ module.exports = function(grunt) {
 
       options.debugMode && console.log(f.src, f.dest);
       // Concat specified files.
-      var results = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
+      var results = f.src.map(function(filepath) {
         // Read file source.
         var data = {
           path: filepath,

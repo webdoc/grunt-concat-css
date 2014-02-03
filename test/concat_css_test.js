@@ -29,16 +29,30 @@ exports.concat_css = {
   },
 
   default_options: function(test) {
-    var actual = grunt.file.read('tmp/default_options.css');
-    var expected = grunt.file.read('test/expected/default_options.css');
-    test.equal(actual, expected, 'The two files should be concatanated together.');
+    var actual = grunt.file.read('tmp/default_options.css').split('\n');
+    var expected = grunt.file.read('test/expected/default_options.css').split('\n');
+    test.deepEqual(actual, expected, 'The two files should be concatanated together.');
     test.done();
   },
 
   rebase_urls: function(test) {
-    var actual = grunt.file.read('tmp/rebase_urls.css');
-    var expected = grunt.file.read('test/expected/rebase_urls.css');
-    test.equal(actual, expected, 'All URLs should have been rebased');
+    var actual = grunt.file.read('tmp/rebase_urls.css').split('\n');
+    var expected = grunt.file.read('test/expected/rebase_urls.css').split('\n');
+    test.deepEqual(actual, expected, 'All URLs should have been rebased');
+    test.done();
+  },
+
+  basedir: function(test) {
+    var actual = grunt.file.read('tmp/basedir_options.css').split('\n');
+    var expected = grunt.file.read('test/expected/basedir_options.css').split('\n');
+    test.deepEqual(actual, expected, 'All URLs should have been rebased');
+    test.done();
+  },
+
+  no_basedir_options: function(test) {
+    var actual = grunt.file.read('tmp/no_basedir_options.css').split('\n');
+    var expected = grunt.file.read('test/expected/no_basedir_options.css').split('\n');
+    test.deepEqual(actual, expected, 'All URLs should have been rebased');
     test.done();
   }
 };

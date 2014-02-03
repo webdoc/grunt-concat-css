@@ -53,13 +53,14 @@ grunt.initConfig({
 ```
 
 #### Rebase URLs
-by specifying rebaseUrls: true, all the assets will be rebased relative to this project root.
+By specifying assetBaseUrl and baseDir, all the assets will be rebased relative to this project rebase URL.
 
 ```js
 grunt.initConfig({
   concat_css: {
     options: {
-      assetBaseUrl: 'static/assets'
+      assetBaseUrl: 'static/assets',
+      baseDir: 'src/(styles|assets)'
     },
     files: {
       'static/styles.css': ['src/styles/**/*.css', 'src/assets/**/*.css']
@@ -72,6 +73,9 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+0.3.1:
+- REFACTOR: added baseDir to be able to properly compute the baseUrl of an asset
 
 0.3.0: 
 - Tests added
