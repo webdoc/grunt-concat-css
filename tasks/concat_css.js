@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         function dataTransformUrlFunc(basedir) {
           var bd = basedir;
           return function(_, b) {
-            return "url('"+normalize([bd, b].join('/'))+"')";
+            return "url('" + [bd, normalize(b)].join('/') + "')";
           };
         }
 
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         function dataTransformImportAlternateFunc(basedir) {
           var bd = basedir;
           return function(_, b) {
-            return "@import url('"+normalize([bd, b].join('/'))+"')";
+              return "@import url('" + [bd, normalize(b)].join('/') + "')";
           };
         }
 
