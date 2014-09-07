@@ -2,19 +2,19 @@
   "name": "grunt-concat-css",
   "version": "0.3.1",
   "description": "Concat CSS with @import statements at top and relative url preserved.",
-  "homepage": "https://github.com/urturn/grunt-concat-css",
+  "homepage": "https://github.com/webdoc/grunt-concat-css",
   "author": "Olivier Amblet <olivier@amblet.net>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/urturn/grunt-concat-css.git"
+    "url": "https://github.com/webdoc/grunt-concat-css.git"
   },
   "bugs": {
-    "url": "https://github.com/urturn/grunt-concat-css/issues"
+    "url": "https://github.com/webdoc/grunt-concat-css/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/urturn/grunt-concat-css/blob/master/LICENSE-MIT"
+      "url": "https://github.com/webdoc/grunt-concat-css/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
