@@ -1,0 +1,13 @@
+@charset "iso-8859-15";
+@charset "windows-1252";
+/*
+ * Sample above taken from MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@charset
+ */
+
+.euro {
+  content: '€'
+}
+
+.oe {
+  content: 'œ'
+}

@@ -61,6 +61,34 @@ module.exports = function(grunt) {
         files: {
           'tmp/no_basedir_options.css': ['test/fixtures/test.css', 'test/fixtures/import.css', 'test/fixtures/component_a/css/style.css']
         }
+      },
+      single_charset: {
+        options: {
+        },
+        files: {
+          'tmp/single_charset.css': ['test/fixtures/test.css', 'test/fixtures/charset.css', 'test/fixtures/component_a/css/style.css']
+        }
+      },
+      multiple_charsets: {
+        options: {
+        },
+        files: {
+          'tmp/multiple_charsets.css': ['test/fixtures/test.css', 'test/fixtures/charset.css', 'test/fixtures/charset_latin-9.css', 'test/fixtures/component_a/css/style.css']
+        }
+      },
+      multiple_charsets_different_order: {
+        options: {
+        },
+        files: {
+          'tmp/multiple_charsets_different_order.css': ['test/fixtures/test.css', 'test/fixtures/charset_latin-9.css', 'test/fixtures/charset.css', 'test/fixtures/component_a/css/style.css']
+        }
+      },
+      multiple_charsets_single_file: {
+        options: {
+        },
+        files: {
+          'tmp/multiple_charsets_single_file.css': ['test/fixtures/charset_latin-9.css']
+        }
       }
     },
 

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/*
+ * Sample above taken from MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@charset
+ */
+
+.heart {
+  content: '♥';
+}
+
+.thunder {
+  content: '↯';
+}
