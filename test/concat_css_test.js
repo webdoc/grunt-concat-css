@@ -54,5 +54,33 @@ exports.concat_css = {
     var expected = grunt.file.read('test/expected/no_basedir_options.css').split('\n');
     test.deepEqual(actual, expected, 'All URLs should have been rebased');
     test.done();
+  },
+
+  single_charset: function(test) {
+    var actual = grunt.file.read('tmp/single_charset.css').split('\n');
+    var expected = grunt.file.read('test/expected/charset.css').split('\n');
+    test.deepEqual(actual, expected, 'All URLs should have been rebased');
+    test.done();
+  },
+
+  multiple_charsets: function(test) {
+    var actual = grunt.file.read('tmp/multiple_charsets.css').split('\n');
+    var expected = grunt.file.read('test/expected/multiple_charsets.css').split('\n');
+    test.deepEqual(actual, expected, 'All URLs should have been rebased');
+    test.done();
+  },
+
+  multiple_charsets_different_order: function(test) {
+    var actual = grunt.file.read('tmp/multiple_charsets_different_order.css').split('\n');
+    var expected = grunt.file.read('test/expected/multiple_charsets_different_order.css').split('\n');
+    test.deepEqual(actual, expected, 'All URLs should have been rebased');
+    test.done();
+  },
+
+  multiple_charsets_single_file: function(test) {
+    var actual = grunt.file.read('tmp/multiple_charsets_single_file.css').split('\n');
+    var expected = grunt.file.read('test/expected/multiple_charsets_single_file.css').split('\n');
+    test.deepEqual(actual, expected, 'All URLs should have been rebased');
+    test.done();
   }
 };

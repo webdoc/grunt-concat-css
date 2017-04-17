@@ -38,6 +38,17 @@ module.exports = function(grunt) {
         }
       };
 
+      var extractCharsetStatements = function (data){
+        var rex = /@charset\s.+\;/gim;
+        var replaceRex = /[\s]*@charset\s.+\;/gim;
+        var matches = data.css.match(rex);
+        if(matches && matches.length > 0){
+          grunt.log.write("Found " + matches.join(", "));
+          data.charsets = matches;
+          data.css = data.css.replace(replaceRex, '');
+        }
+      };
+
       var rebaseUrls = function (data) {
         function dirname(csspath){
           var splits = csspath.split('/');
@@ -91,6 +102,7 @@ module.exports = function(grunt) {
       };
 
       var imports = "";
+      var charsets = [];
       var cssFragments = [];
 
       options.debugMode && console.log(f.src, f.dest);
@@ -109,12 +121,18 @@ module.exports = function(grunt) {
         if (data.imports) {
           imports += data.imports.join("\n") + "\n";
         }
+        extractCharsetStatements(data);
+        if (data.charsets) {
+          charsets = charsets.concat(data.charsets);
+        }
         cssFragments.push(data.css.replace(/(^\s+|\s+$)/g,''));
         return data;
       });
 
+      var charset = charsets[0] ? charsets[0] + '\n' : '';
+
       // Write the destination file.
-      grunt.file.write(f.dest, imports + cssFragments.join('\n') + '\n');
+      grunt.file.write(f.dest, charset + imports + cssFragments.join('\n') + '\n');
 
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');

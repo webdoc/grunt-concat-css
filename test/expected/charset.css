@@ -1,0 +1,23 @@
+@charset "UTF-8";
+body: {
+  background-color: #EFEFEF;
+  background-image: url(http://somewebsite.com/pix.jpg);
+}
+
+.header: {
+  background-image: url(assets/images/pix.jpg);
+}
+/*
+ * Sample above taken from MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@charset
+ */
+
+.heart {
+  content: '♥';
+}
+
+.thunder {
+  content: '↯';
+}
+.component_a {
+  background: url('../images/nasty-texture.png');
+}
