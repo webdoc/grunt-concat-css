@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         function dataTransformUrlFunc(basedir) {
           var bd = basedir;
           return function(_, b) {
-            return "url('"+normalize([bd, b].join('/'))+"')";
+            return "url('"+path.normalize([bd, b].join('/'))+"')";
           };
         }
 
@@ -57,24 +57,8 @@ module.exports = function(grunt) {
         function dataTransformImportAlternateFunc(basedir) {
           var bd = basedir;
           return function(_, b) {
-            return "@import url('"+normalize([bd, b].join('/'))+"')";
+            return "@import url('"+path.normalize([bd, b].join('/'))+"')";
           };
-        }
-
-        /**
-         * remove upFolder(..) part of an URL
-         */
-        function normalize(url) {
-          var computedParts = [];
-          var parts = url.split('/');
-          for (var i in parts){
-            if (parts[i] === '..') {
-              computedParts.pop();
-            } else {
-              computedParts.push(parts[i]);
-            }
-          }
-          return computedParts.join('/');
         }
 
         function computeBaseUrl() {
